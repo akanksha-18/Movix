@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, useContext } from 'react';
-import { fetchDataFromApi } from '../utils/api';  // Ensure this is correct
+import { fetchDataFromApi } from '../utils/api';  
 
 const MovieContext = createContext();
 

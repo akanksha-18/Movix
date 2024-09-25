@@ -5,7 +5,7 @@ import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/Navbar';
 import Movies from './pages/Movies';
 import Banner from './components/Banner';
-import MoviesAndTVShows from './components/MoviesAndTVshows';
+// import MoviesAndTVShows from './components/MoviesAndTVshows';
 
 const App = () => {
     return (
@@ -26,3 +26,6 @@ const App = () => {
 };
 
 export default App;
+
+
+
