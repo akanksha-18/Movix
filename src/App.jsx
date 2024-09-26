@@ -5,6 +5,7 @@ import { MovieProvider } from './context/MovieContext';
 import Navbar from './components/Navbar';
 import Movies from './pages/Movies';
 import Banner from './components/Banner';
+import MovieDetails from './components/MovieDetails';
 // import MoviesAndTVShows from './components/MoviesAndTVshows';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
                     <Route path="/" element={<Home />} />
                     <Route path="/movies" element={<Movies/>}/>
                     <Route path="/tvshows" element={<TVShows />} />
+                    <Route path="/movie/:id" element={<MovieDetails />} />
                 </Routes>
             </Router>
             {/* <MoviesAndTVShows/> */}

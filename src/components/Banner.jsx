@@ -1,12 +1,12 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMovieContext } from '../context/MovieContext';
-import Card from './Card'; 
+import Card from './Card';
 
 const Banner = () => {
     const [backgroundImage, setBackgroundImage] = useState('');
     const [searchQuery, setSearchQuery] = useState('');
     const { fetchByQuery, searchResults } = useMovieContext();
-    
+
     const images = [
         'https://image.tmdb.org/t/p/w500/path_to_your_image1.jpg',
         'https://image.tmdb.org/t/p/w500/path_to_your_image2.jpg',
@@ -43,15 +43,14 @@ const Banner = () => {
                     <button type="submit" className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-full">Search</button>
                 </form>
             </div>
+
             {/* Display search results */}
             {searchResults.length > 0 && (
-                <div className="w-full bg-white bg-opacity-70 p-4 rounded-lg shadow-lg">
+                <div className="w-full bg-white bg-opacity-70 p-4 rounded-lg shadow-lg mt-4">
                     <h2 className="text-2xl font-bold mb-2">Search Results:</h2>
-                    <div className="flex overflow-x-auto space-x-4 pb-4">
-                        {searchResults.map(item => (
-                            <div className="flex-none w-48" key={item.id}>
-                                <Card item={item} />
-                            </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        {searchResults.map((item) => (
+                            <Card key={item.id} movie={item} />
                         ))}
                     </div>
                 </div>
