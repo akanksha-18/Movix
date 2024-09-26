@@ -1,99 +1,12 @@
-// /* eslint-disable react/prop-types */
-// import { useState } from 'react';
-
-// const CircularProgressBar = ({ rating }) => {
-//     const normalizedRating = Math.min(Math.max(rating, 0), 10); // Ensure rating is between 0 and 10
-//     const percentage = (normalizedRating / 10) * 100;
-//     const strokeDasharray = 2 * Math.PI * 18; // 2πr where r=18 (radius of our circle)
-//     const strokeDashoffset = strokeDasharray - (strokeDasharray * percentage) / 100;
-
-//     return (
-//         <div className="relative w-12 h-12">
-//             <svg className="w-full h-full" viewBox="0 0 40 40">
-//                 <circle
-//                     cx="20"
-//                     cy="20"
-//                     r="18"
-//                     fill="none"
-//                     stroke="#e6e6e6"
-//                     strokeWidth="4"
-//                 />
-//                 <circle
-//                     cx="20"
-//                     cy="20"
-//                     r="18"
-//                     fill="none"
-//                     stroke="#22c55e"
-//                     strokeWidth="4"
-//                     strokeDasharray={strokeDasharray}
-//                     strokeDashoffset={strokeDashoffset}
-//                     strokeLinecap="round"
-//                     transform="rotate(-90 20 20)"
-//                 />
-//             </svg>
-//             <div className="absolute inset-0 flex items-center justify-center">
-//                 <span className="text-sm font-bold">{normalizedRating.toFixed(1)}</span>
-//             </div>
-//         </div>
-//     );
-// };
-
-// const Card = ({ movie }) => {
-//     const [isHovered, setIsHovered] = useState(false);
-
-//     const imageUrl = movie.poster_path
-//         ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-//         : 'https://via.placeholder.com/500x750.png?text=No+Image';
-
-//     return (
-//         <div 
-//             className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl"
-//             onMouseEnter={() => setIsHovered(true)}
-//             onMouseLeave={() => setIsHovered(false)}
-//         >
-//             <div className="relative">
-//                 <img
-//                     className="object-cover w-full h-96"
-//                     src={imageUrl}
-//                     alt={movie.title || movie.name}
-//                 />
-//                 {isHovered && (
-//                     <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300">
-//                         <p className="text-white text-center px-4">
-//                             {movie.overview.length > 150
-//                                 ? `${movie.overview.substring(0, 150)}...`
-//                                 : movie.overview}
-//                         </p>
-//                     </div>
-//                 )}
-//             </div>
-//             <div className="p-4">
-//                 <h3 className="text-xl font-bold mb-2 text-gray-800 truncate">
-//                     {movie.title || movie.name}
-//                 </h3>
-//                 <p className="text-gray-600 text-sm mb-2">
-//                     {new Date(movie.release_date || movie.first_air_date).getFullYear() || 'N/A'}
-//                 </p>
-//                 <div className="flex items-center justify-between">
-//                     <CircularProgressBar rating={movie.vote_average} />
-//                     <span className="text-sm text-gray-500">
-//                         {movie.media_type === 'movie' ? 'Movie' : 'TV Show'}
-//                     </span>
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default Card;
+/* eslint-disable react/prop-types */
 
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 const CircularProgressBar = ({ rating }) => {
-    const normalizedRating = Math.min(Math.max(rating, 0), 10); // Ensure rating is between 0 and 10
+    const normalizedRating = Math.min(Math.max(rating, 0), 10); 
     const percentage = (normalizedRating / 10) * 100;
-    const strokeDasharray = 2 * Math.PI * 18; // 2πr where r=18 (radius of our circle)
+    const strokeDasharray = 2 * Math.PI * 18; 
     const strokeDashoffset = strokeDasharray - (strokeDasharray * percentage) / 100;
 
     return (
@@ -121,53 +34,57 @@ const CircularProgressBar = ({ rating }) => {
                 />
             </svg>
             <div className="absolute inset-0 flex items-center justify-center">
-                <span className="text-sm font-bold">{normalizedRating.toFixed(1)}</span>
+                <span className="text-sm font-bold text-black">{normalizedRating.toFixed(1)}</span>
             </div>
         </div>
     );
 };
 
-const Card = ({ movie }) => {
+const Card = ({ item, mediaType }) => {
     const [isHovered, setIsHovered] = useState(false);
 
-    const imageUrl = movie.poster_path
-        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    const imageUrl = item.poster_path
+        ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
         : 'https://via.placeholder.com/500x750.png?text=No+Image';
 
+    const linkPath = mediaType === 'movie' ? `/movie/${item.id}` : `/tv/${item.id}`;
+
     return (
-        <Link to={`/movie/${movie.id}`}> {/* Link to Movie Details */}
-            <div 
-                className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl"
+        <Link to={linkPath}>
+            <div
+                className="bg-white shadow-lg rounded-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-2xl w-64" // Fixed width set here
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <div className="relative">
                     <img
-                        className="object-cover w-full h-96"
+                        className="object-cover w-full h-96 transition duration-300 ease-in-out transform hover:scale-110"
                         src={imageUrl}
-                        alt={movie.title || movie.name}
+                        alt={item.title || item.name}
                     />
                     {isHovered && (
-                        <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center transition-opacity duration-300">
-                            <p className="text-white text-center px-4">
-                                {movie.overview.length > 150
-                                    ? `${movie.overview.substring(0, 150)}...`
-                                    : movie.overview}
+                        <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center transition-opacity duration-300">
+                            <p className="text-white text-lg px-4 text-center">
+                                {item.overview.length > 150
+                                    ? `${item.overview.substring(0, 150)}...`
+                                    : item.overview}
                             </p>
                         </div>
                     )}
                 </div>
                 <div className="p-4">
-                    <h3 className="text-xl font-bold mb-2 text-gray-800 truncate">
-                        {movie.title || movie.name}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-2">
-                        {new Date(movie.release_date || movie.first_air_date).getFullYear() || 'N/A'}
-                    </p>
-                    <div className="flex items-center justify-between">
-                        <CircularProgressBar rating={movie.vote_average} />
-                        <span className="text-sm text-gray-500">
-                            {movie.media_type === 'movie' ? 'Movie' : 'TV Show'}
+                    <h3 className="text-xl font-semibold mb-1 text-gray-800 truncate">{item.title || item.name}</h3>
+                    {/* <p className="text-gray-500 text-sm mb-2">
+                        {new Date(item.release_date || item.first_air_date).getFullYear() || 'N/A'}
+                    </p> */}
+                    <p className="text-gray-500 text-sm mb-2">
+    {new Date(item.release_date || item.first_air_date).toLocaleDateString() || 'N/A'}
+</p>
+
+                    <div className="flex items-center justify-between mt-3">
+                        <CircularProgressBar rating={item.vote_average} />
+                        <span className="text-sm font-medium text-gray-500">
+                            {mediaType === 'movie' ? 'Movie' : 'TV Show'}
                         </span>
                     </div>
                 </div>

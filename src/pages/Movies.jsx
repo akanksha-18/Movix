@@ -48,8 +48,10 @@ const Movies = () => {
             <Dropdown handleGenreChange={handleGenreChange} handleSortChange={handleSortChange} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {movies.map((movie) => (
-                    <Card key={movie.id} movie={movie} />
-                ))}
+                    // <Card key={movie.id} movie={movie} />
+                    <Card key={movie.id} item={movie} mediaType="movie"/>
+                ))} 
+
             </div>
             {isFetching && <p className="text-center mt-4">Loading more movies...</p>}
         </div>

@@ -17,6 +17,8 @@ const TVShows = () => {
             with_genres: genre,
         };
         const response = await fetchDataFromApi('/discover/tv', params);
+        console.log("TV shows",response);
+        
         setTvShows((prev) => [...prev, ...response.results]);
         setPage((prev) => prev + 1);
     };
@@ -44,7 +46,8 @@ const TVShows = () => {
             <Dropdown handleGenreChange={handleGenreChange} handleSortChange={handleSortChange} />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {tvShows.map((tvShow) => (
-                    <Card key={tvShow.id} movie={tvShow} />
+                    // <Card key={tvShow.id} movie={tvShow} />
+                    <Card key={tvShow.id} item={tvShow} mediaType="tv" />
                 ))}
             </div>
             {isFetching && <p className="text-center mt-4">Loading more TV shows...</p>}
@@ -53,3 +56,4 @@ const TVShows = () => {
 };
 
 export default TVShows;
+

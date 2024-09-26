@@ -14,14 +14,13 @@ const Dropdown = ({ handleGenreChange, handleSortChange }) => {
     }, []);
 
     return (
-        <div className="flex justify-between mb-4">
-            {/* Genre Dropdown */}
-            <div>
-                <label htmlFor="genre" className="mr-2">Genre: </label>
+        <div className="flex justify-between mb-4 space-x-4">
+            <div className="flex items-center">
+                <label htmlFor="genre" className="mr-2 font-semibold text-white">Genre:</label>
                 <select
                     id="genre"
                     onChange={(e) => handleGenreChange(e.target.value)}
-                    className="p-2 rounded border"
+                    className="p-2 rounded-lg border border-gray-300 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
                 >
                     <option value="">All Genres</option>
                     {genres.map((genre) => (
@@ -32,13 +31,12 @@ const Dropdown = ({ handleGenreChange, handleSortChange }) => {
                 </select>
             </div>
 
-            {/* Sort Dropdown */}
-            <div>
-                <label htmlFor="sort" className="mr-2">Sort By: </label>
+            <div className="flex items-center">
+                <label htmlFor="sort" className="mr-2 font-semibold text-white">Sort By:</label>
                 <select
                     id="sort"
                     onChange={(e) => handleSortChange(e.target.value)}
-                    className="p-2 rounded border"
+                    className="p-2 rounded-lg border border-gray-300 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
                 >
                     <option value="popularity.desc">Most Popular</option>
                     <option value="popularity.asc">Least Popular</option>
